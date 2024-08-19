@@ -5,22 +5,34 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 const paddleSpeed = 4;
-const ballSpeedX = 4;
-const ballSpeedY = 4;
+const ballSpeed = 4;
+const ballSpeedX = ballSpeed;
+const ballSpeedY = ballSpeed;
 
 let leftPaddleY = canvas.height / 2 - paddleHeight / 2;
 let rightPaddleY = canvas.height / 2 - paddleHeight / 2;
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
-let ballVelX = ballSpeedX;
-let ballVelY = ballSpeedY;
+let ballVelX = 0;
+let ballVelY = 0;
 
-const keys = {
-    w: false,
-    s: false,
-    ArrowUp: false,
-    ArrowDown: false
-};
+// Function to reset the ball to the center with a random angle
+function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+
+    // Generate a random angle between -45 and 45 degrees (in radians)
+    const angle = Math.random() * (Math.PI / 2) - Math.PI / 4;
+
+    // Set initial velocity based on the random angle
+    ballVelX = ballSpeed * Math.cos(angle);
+    ballVelY = ballSpeed * Math.sin(angle);
+
+    // Ensure the ball moves towards one of the sides
+    if (Math.random() < 0.5) {
+        ballVelX = -ballVelX;
+    }
+}
 
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -55,9 +67,7 @@ function update() {
 
     // Ball out of bounds
     if (ballX - ballSize < 0 || ballX + ballSize > canvas.width) {
-        ballX = canvas.width / 2;
-        ballY = canvas.height / 2;
-        ballVelX = -ballVelX;
+        resetBall();
     }
 
     // Paddle movement
@@ -90,5 +100,8 @@ document.addEventListener('keyup', (event) => {
         keys[event.key] = false;
     }
 });
+
+// Initialize the ball with a random direction when the game starts
+resetBall();
 
 gameLoop();
