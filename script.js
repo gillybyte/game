@@ -5,7 +5,7 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 const paddleSpeed = 4;
-const ballSpeed = 10; // Speed of the ball
+const ballSpeed = 8; // Increased speed of the ball
 const aiSpeed = 3; // Speed at which the AI moves
 
 let leftPaddleY = canvas.height / 2 - paddleHeight / 2;
@@ -31,7 +31,7 @@ function resetBall() {
     // Generate a random angle between 45 and 135 degrees (π/4 to 3π/4 radians)
     let angle = Math.random() * (Math.PI / 2) + Math.PI / 4;
 
-    // Set ball velocity based on the random angle
+    // Set ball velocity based on the random angle and speed
     ballVelX = ballSpeed * Math.cos(angle);
     ballVelY = ballSpeed * Math.sin(angle);
 
@@ -50,6 +50,7 @@ function draw() {
     context.fillRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight);
 
     // Draw ball
+    context.fillStyle = 'red'; // Set ball color to red
     context.beginPath();
     context.arc(ballX, ballY, ballSize, 0, Math.PI * 2);
     context.fill();
