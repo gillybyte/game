@@ -3,7 +3,7 @@ const context = canvas.getContext('2d');
 
 const paddleWidth = 10;
 const paddleHeight = 100;
-const ballSize = 10;
+const ballSize = 20;
 const paddleSpeed = 4;
 const ballSpeed = 8; // Increased speed of the ball
 const aiSpeed = 3; // Speed at which the AI moves
