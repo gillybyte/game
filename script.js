@@ -5,23 +5,39 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 const paddleSpeed = 4;
-const ballSpeedX = 4;
-const ballSpeedY = 4;
+const ballSpeed = 4; // Speed of the ball
 const aiSpeed = 3; // Speed at which the AI moves
 
 let leftPaddleY = canvas.height / 2 - paddleHeight / 2;
 let rightPaddleY = canvas.height / 2 - paddleHeight / 2;
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
-let ballVelX = ballSpeedX;
-let ballVelY = ballSpeedY;
+let ballVelX = 0;
+let ballVelY = 0;
 
+// Control keys
 const keys = {
     w: false,
     s: false,
     ArrowUp: false,
     ArrowDown: false
 };
+
+function resetBall() {
+    // Reset ball to center
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+
+    // Random angle for the ball
+    const angle = Math.random() * Math.PI / 2 + Math.PI / 4; // Random angle between 45° and 135°
+    ballVelX = Math.cos(angle) * ballSpeed;
+    ballVelY = Math.sin(angle) * ballSpeed;
+
+    // Ensure the ball is moving to the right or left
+    if (Math.random() > 0.5) {
+        ballVelX = -ballVelX;
+    }
+}
 
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -56,9 +72,7 @@ function update() {
 
     // Ball out of bounds
     if (ballX - ballSize < 0 || ballX + ballSize > canvas.width) {
-        ballX = canvas.width / 2;
-        ballY = canvas.height / 2;
-        ballVelX = -ballVelX;
+        resetBall();
     }
 
     // Player paddle movement
@@ -84,6 +98,9 @@ function gameLoop() {
     update();
     requestAnimationFrame(gameLoop);
 }
+
+// Initialize ball movement
+resetBall();
 
 document.addEventListener('keydown', (event) => {
     if (event.key in keys) {
