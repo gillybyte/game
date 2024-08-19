@@ -28,12 +28,14 @@ function resetBall() {
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
 
-    // Random angle for the ball
-    const angle = Math.random() * Math.PI / 2 + Math.PI / 4; // Random angle between 45° and 135°
-    ballVelX = Math.cos(angle) * ballSpeed;
-    ballVelY = Math.sin(angle) * ballSpeed;
+    // Generate a random angle between 45 and 135 degrees (π/4 to 3π/4 radians)
+    let angle = Math.random() * (Math.PI / 2) + Math.PI / 4;
 
-    // Ensure the ball is moving to the right or left
+    // Set ball velocity based on the random angle
+    ballVelX = ballSpeed * Math.cos(angle);
+    ballVelY = ballSpeed * Math.sin(angle);
+
+    // Ensure the ball is moving in a random direction (left or right)
     if (Math.random() > 0.5) {
         ballVelX = -ballVelX;
     }
