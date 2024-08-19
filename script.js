@@ -5,7 +5,7 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 const paddleSpeed = 4;
-const ballSpeed = 4; // Speed of the ball
+const ballSpeed = 10; // Speed of the ball
 const aiSpeed = 3; // Speed at which the AI moves
 
 let leftPaddleY = canvas.height / 2 - paddleHeight / 2;
